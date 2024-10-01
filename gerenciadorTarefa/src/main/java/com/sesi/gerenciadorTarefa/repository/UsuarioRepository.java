@@ -1,5 +1,9 @@
 package com.sesi.gerenciadorTarefa.repository;
 
-public interface UsuarioRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.sesi.gerenciadorTarefa.model.Usuario;
+
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer >{
 
 }
