@@ -36,17 +36,17 @@
         <td th:text="${tarefa.usuario.nome}" ></td>
          <td th:text="${tarefa.prioridade}" ></td>
           <td th:text="${tarefa.status}" ></td>
-    <td><!--
+    <td>
     
       
-    <a th:href="@{/editarCategoria/{id} (id=${categoria.id})}">
+    <a th:href="@{/tarefas/editarTarefa/{id} (id=${tarefa.id})}">
     <button type="button" class="btn btn-primary">Editar</button>
     </a>
-    
-    <a th:href="@{/excluirCategoria/{id} (id=${categoria.id})}">
+     
+    <a th:href="@{/tarefas/removerTarefa/{id} (id=${tarefa.id})}">
     <button type="button" class="btn btn-danger">Excluir</button>
     </a>
-     -->
+    
     </td>
     
    
@@ -59,6 +59,10 @@
   
   
 </table>
+<a th:href="@{/tarefas/novo}">
+<button type="button" class="btn btn-warning">Cadastrar</button>
+</a>
+
     </div>
     
     

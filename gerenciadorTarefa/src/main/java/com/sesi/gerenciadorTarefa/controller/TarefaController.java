@@ -1,13 +1,17 @@
 package com.sesi.gerenciadorTarefa.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sesi.gerenciadorTarefa.model.Tarefa;
+import com.sesi.gerenciadorTarefa.model.TarefaCategoria;
 import com.sesi.gerenciadorTarefa.repository.TarefaCategoriaRepository;
 import com.sesi.gerenciadorTarefa.repository.TarefaRepository;
 import com.sesi.gerenciadorTarefa.repository.UsuarioRepository;
@@ -45,6 +49,30 @@ public class TarefaController {
 		tarefaRepository.save(tarefa);
 		return"redirect:/tarefas/listarTarefas";
 		
-	} 
+	}
+	
+	//remover
+	@GetMapping("/removerTarefa/{id}")
+	public String removerTarefa(@PathVariable ("id") int id) {
+		tarefaRepository.deleteById(id);
+		return"redirect:/tarefas/listarTarefas";
+	}
+	
+	//editar
+
+	@GetMapping("/editarTarefa/{id}")
+	public String editarTarefa(@PathVariable("id") int id, Model modelo) {
+		Optional<Tarefa> tarefaOpt = tarefaRepository.findById(id);
+		
+		
+		if (tarefaOpt.isPresent()) {
+			modelo.addAttribute("tarefa", tarefaOpt.get());
+			modelo.addAttribute("usuarios", usuarioRepository.findAll());
+			modelo.addAttribute("categorias", categoriaRepository.findAll());
+			return"formularioTarefa";
+		} else {
+			return "redirect:/tarefas/listarTarefas";
+		}
+	}
 	
 }
